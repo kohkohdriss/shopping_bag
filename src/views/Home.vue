@@ -13,7 +13,10 @@
         <!-- <img class="product-image" :src="product.image" alt="" /> -->
         <h4>{{ product.title }}</h4>
         <p class="price">{{ product.price.toFixed(2) }}</p>
-        <button>Add to bag</button>
+        <button v-if="!isInBag(product)" @click="addToBag(product)">
+          Add to bag
+        </button>
+        <button v-else class="remove">Remove from bag</button>
       </div>
     </div>
   </div>
@@ -26,11 +29,22 @@ export default {
     return {};
   },
 
-  methods: {},
+  methods: {
+    addToBag(product) {
+      product.quantity = 1;
+      this.$store.dispatch("addToBag", product);
+    },
+    isInBag(product) {
+      return this.productsInBag.find((item) => item.id == product.id);
+    },
+  },
 
   computed: {
     products() {
       return this.$store.state.products;
+    },
+    productsInBag() {
+      return this.$store.state.productsInBag;
     },
   },
 };
