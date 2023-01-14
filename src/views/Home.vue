@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Home",
   data() {
@@ -46,14 +47,17 @@ export default {
     },
   },
 
-  computed: {
-    products() {
-      return this.$store.state.products;
-    },
-    productsInBag() {
-      return this.$store.state.productsInBag;
-    },
-  },
+  computed: mapState(["products", "productsInBag"]),
+
+  // computed: {
+  //   products() {
+  //     return this.$store.state.products;
+  //   },
+  //   productsInBag() {
+  //     return this.$store.state.productsInBag;
+  //   },
+
+  // },
 };
 </script>
 
